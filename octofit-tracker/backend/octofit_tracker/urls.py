@@ -25,8 +25,17 @@ router.register(r'activities', ActivityViewSet)
 router.register(r'workouts', WorkoutViewSet)
 router.register(r'leaderboard', LeaderboardViewSet)
 
+import os
+
+# Dynamische API-URL für Dokumentation (z.B. für Hinweise in der Root-API)
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME')
+codespace_url = f"https://{CODESPACE_NAME}-8000.app.github.dev" if CODESPACE_NAME else "http://localhost:8000"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', api_root, name='api-root'),
     path('api/', include(router.urls)),
 ]
+
+# Hinweis für Entwickler: Die API ist erreichbar unter
+# {codespace_url}/api/[component]/
